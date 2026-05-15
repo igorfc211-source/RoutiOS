@@ -26,6 +26,7 @@ func Connect() *gorm.DB{
 
 		log.Fatal(err)
 	}
+	fmt.Println("connected to " + dsn)
 
 	return db
 }

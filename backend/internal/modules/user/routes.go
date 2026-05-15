@@ -7,4 +7,6 @@ func RegisterRoutes(r *gin.Engine, handler *Handler) {
 
 	auth.POST("/register", handler.Register)
 	auth.POST("/login", handler.Login)
+	auth.DELETE("/delete/:ID", handler.Delete)
+	auth.GET("/users", handler.FindAll)
 }

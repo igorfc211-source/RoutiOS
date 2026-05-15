@@ -3,6 +3,8 @@ package user
 import (
 	"errors"
 	"project-api/internal/modules/auth"
+
+	"github.com/google/uuid"
 )
 
 type Service struct {
@@ -36,11 +38,14 @@ func (s *Service) Register(data RegisterDTO) error {
 
 
 	if err != nil {
+		
 		return err
 	}
 
 	return nil
 }
+
+
 
 func (s *Service) Login(data LoginDTO) (string, error) {
 	user, _ := s.repo.FindByEmail(data.Email)
@@ -62,4 +67,20 @@ func (s *Service) Login(data LoginDTO) (string, error) {
 	}
 
 	return token, nil
+}
+
+func (s *Service) Delete(id uuid.UUID) error{
+
+	user, err := s.repo.FindByID(id)
+
+	if err != nil {
+		return err
+	}
+
+	return s.repo.Delete(user.ID)
+}
+
+func (s *Service) FindAll() ([]User, error) {
+
+	return s.repo.FindAll()
 }
